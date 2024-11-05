@@ -1,58 +1,40 @@
 from collections import deque
-def dfs(x, y):
+
+def bfs(y, x):
+    global cnt
     dx = [1, -1, 0, 0]
     dy = [0, 0, 1, -1]
-
-    if y < 0 or x < 0 or y >= n or x >= n:
+    if x >= size or y >= size or x < 0 or y < 0:
         return False
     if graph[y][x] == 0:
         return False
-    if graph[y][x] == 1:
-        graph[y][x] = 0
-        global num
-        num += 1
+    if graph[y][x] == 1 and visited[y][x] == False:
+        visited [y][x] = True
+        graph[y][x] = total + 1 ## 리스트도 추가적으로 바꿔보기
+        cnt += 1
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-
-            dfs(nx, ny)
+            bfs(ny, nx)
         return True
-
     return False
 
-n = int(input())
-graph = [list(map(int, input())) for _ in range(n)]
+size = int(input())
+graph =[list(map(int, input())) for _ in range(size)]
+visited = [[False]*size for _ in range(size)]
+result = []
+total = 0
 
-cnt = 0
-num = 0
-li = []
-for i in range(n):
-    for j in range(n):
-        if dfs(i, j) == True:
-            li.append(num)
-            num = 0
-            cnt += 1
-print(cnt)
-li.sort(reverse=True)
-for i in range(len(li)):
-    print(li.pop())
+for i in range(size):
+    for j in range(size):
+        cnt = 0
+        if bfs(i, j) is not False:
+            total += 1
+            result.append(cnt)
 
+result.sort()
 
+print(total)
+for i in range(len(result)):
+    print(result[i])
 
-
-
-
-
-
-
-
-"""
-7
-0110100
-0110101
-1110101
-0000111
-0100000
-0111110
-0111000
-"""
