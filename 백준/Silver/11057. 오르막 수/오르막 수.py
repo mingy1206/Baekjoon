@@ -9,4 +9,4 @@ for i in range(1, n):
             result += dp[i-1][k]
         dp[i][j] = result
 
-print(sum(max(dp))%10007)
+print(sum(dp[n-1])%10007)
