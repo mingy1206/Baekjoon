@@ -1,42 +1,32 @@
-import sys
-
-input = sys.stdin.readline
-
 n = int(input())
-data = []
 
-_sum = 0
-count = dict()
+lst = []
+v = [0]*8001
+total = 0
 for _ in range(n):
-    x = int(input())
-    data.append(x)
+    num = int(input())
+    total += num
+    v[num+4000] += 1
+    lst.append(num)
 
-    _sum += x
+max_num = max(v)
+lst2 = []
+for i in range(len(v)):
+    if v[i] == max_num:
+        lst2.append(i-4000)
 
-    if x not in count:
-        count[x] = 1
-    else:
-        count[x] += 1
+lst.sort()
 
-data.sort()
-
-# 산술평균
-print(round(_sum/n))
-
-# 중앙값
-print(data[n//2])
-
-# 최빈값
-freq = max(count.values())
-numbers = []
-for key, value in count.items():
-    if value == freq:
-        numbers.append(key)
-
-if len(numbers) == 1:
-    print(numbers[0])
+if n == 1:
+    print(lst[0])
+    print(lst[0])
+    print(lst[0])
+    print(0)
 else:
-    print(sorted(numbers)[1])
-
-# 범위
-print(data[-1] - data[0])
+    print(round(total / n))
+    print(lst[int(len(lst)/2)])
+    if len(lst2) >= 2:
+        print(lst2[1])
+    else:
+        print(lst2[0])
+    print(lst[-1]-lst[0])
