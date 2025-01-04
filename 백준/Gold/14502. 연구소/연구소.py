@@ -4,7 +4,6 @@ from collections import deque
 # 유튜브 참고 버전
 # https://www.youtube.com/watch?v=1Ab5s8HV1ww
 def bfs(tlst):
-
     # 3개 좌표를 1로 저장 => 벽 막기
     for i,j in tlst:
         arr[i][j]=1
@@ -32,7 +31,7 @@ def bfs(tlst):
 
 
 
-def dfs(n, tlst):
+"""def dfs(n, tlst):
     global ans
     if n==3:
         ans = max(ans, bfs(tlst))
@@ -41,7 +40,7 @@ def dfs(n, tlst):
         if v[j]==0:
             v[j]=1
             dfs(n+1, tlst+[lst[j]])
-            v[j] = 0
+            v[j] = 0"""
 
 N, M = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(N)]
@@ -61,7 +60,11 @@ CNT = len(lst)
 v = [0]*CNT
 ans = 0
 
-dfs(0, [])
+for i in range(CNT-2):
+    for j in range(i+1, CNT-1):
+        for k in range(j+1, CNT):
+            ans = max(ans, bfs((lst[i], lst[j], lst[k])))
+
 print(ans)
 
 
