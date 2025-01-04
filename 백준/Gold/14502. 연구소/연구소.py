@@ -1,6 +1,72 @@
 import copy
 from collections import deque
 
+# 유튜브 참고 버전
+# https://www.youtube.com/watch?v=1Ab5s8HV1ww
+def bfs(tlst):
+
+    # 3개 좌표를 1로 저장 => 벽 막기
+    for i,j in tlst:
+        arr[i][j]=1
+    queue = deque()
+    w = [[0]*M for _ in range(N)]
+    cnt = CNT-3
+    for ti,tj in virus:
+        queue.append((ti, tj))
+        w[ti][tj]=1
+
+    while queue:
+        ci, cj = queue.popleft()
+        for di,dj in((-1,0),(1,0),(0,-1),(0,1)):
+            ni,nj = ci+di, cj+dj
+            if 0<=ni<N and 0<=nj<M and w[ni][nj]==0 and arr[ni][nj]==0:
+                queue.append((ni,nj))
+                w[ni][nj]=1
+                cnt-=1
+
+
+    for i,j in tlst:
+        arr[i][j]=0
+
+    return cnt
+
+
+
+def dfs(n, tlst):
+    global ans
+    if n==3:
+        ans = max(ans, bfs(tlst))
+        return
+    for j in range(CNT):
+        if v[j]==0:
+            v[j]=1
+            dfs(n+1, tlst+[lst[j]])
+            v[j] = 0
+
+N, M = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(N)]
+
+lst = []
+virus = []
+
+# 빈칸 위치, 바이러스 위치 저장
+for i in range(N):
+    for j in range(M):
+        if arr[i][j]==0:
+            lst.append((i,j))
+        elif arr[i][j]==2:
+            virus.append((i,j))
+
+CNT = len(lst)
+v = [0]*CNT
+ans = 0
+
+dfs(0, [])
+print(ans)
+
+
+
+"""
 def virus(temp):
     directions = [(1,0), (-1,0), (0,1), (0,-1)]
     queue = deque()
@@ -42,10 +108,10 @@ def count(temp):
 
     if cnt > max_cnt:
         max_cnt = cnt
-        """for line in temp:
+        for line in temp:
             print(line)
 
-        print("------------")"""
+        print("------------")
 
 
 
@@ -59,6 +125,6 @@ max_cnt = 0
 wall(0)
 print(max_cnt)
 
-
+"""
 
 
