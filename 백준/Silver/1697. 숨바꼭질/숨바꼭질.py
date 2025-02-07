@@ -1,38 +1,27 @@
+import sys
 from collections import deque
+N,K = map(int, sys.stdin.readline().rstrip().split())
+graph = [[] for _ in range(100001)]
+queue = deque()
+queue.append(N)
+distance = [0]*100001
 
-def bfs(n, k):
-    distance = [0] * 100002
-    queue = deque()
-    queue.append(n)
+for i in range(100000):
+    graph[i].append(i+1)
+    graph[i+1].append(i)
+    if i*2<=100000:
+        graph[i].append(i*2)
 
-    distance[n] = 0
-    visited[n] = True
 
+def bfs():
     while queue:
         node = queue.popleft()
+        if node == K:
+            return distance[node]
+
         for i in graph[node]:
-            if visited[i] is not True:
+            if distance[i] == 0:
                 queue.append(i)
-                visited[i] = True
                 distance[i] = distance[node] + 1
-                if i == k:
-                    return  distance[i]
 
-
-
-
-n, k = map(int, input().split())
-visited = [False]*100002
-graph = [[] for _ in range(100002)]
-
-for i in range(len(graph)):
-    if i+1 <= 100000:
-        graph[i].append(i+1)
-        graph[i+1].append(i)
-    if i*2 <= 100000:
-        graph[i].append(i*2)
-        
-if n == k:
-    print(0)
-else:
-    print(bfs(n,k))
+print(bfs())
