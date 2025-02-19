@@ -293,4 +293,3 @@ for _ in range(tc):
         for j in range(3):
             print(cube[0][i][j],end='')
         print()
-
