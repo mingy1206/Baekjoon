@@ -1,0 +1,7 @@
+SET @HOUR := -1; -- 변수 선언 및 초기화 (0부터 시작하기 위해 -1로 설정)
+
+SELECT 
+    (@HOUR := @HOUR + 1) AS HOUR,
+    (SELECT COUNT(*) FROM ANIMAL_OUTS WHERE HOUR(DATETIME) = @HOUR) AS COUNT
+FROM ANIMAL_OUTS
+WHERE @HOUR < 23;
