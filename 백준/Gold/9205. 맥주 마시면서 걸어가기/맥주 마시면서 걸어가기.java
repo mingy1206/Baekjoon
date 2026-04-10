@@ -37,19 +37,6 @@ public class Main {
         if(now.x == festival.x && now.y == festival.y){
             return true;
         }
-//        for(int i = 0; i < map.size(); i++){
-//            Point conv = map.get(i);
-//            if(now.x == conv.x && now.y == conv.y){
-//                beer = 20;
-//            }
-//        }
-//        if(cd > 50){
-//            if(beer <= 0) return false;
-//            else{
-//                beer -= 1;
-//                cd += 1;
-//            }
-//        }
         for(int i = 0; i < map.size(); i++){
             if(visited[i]) continue;
             Point next = map.get(i);
